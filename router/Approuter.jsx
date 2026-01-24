@@ -5,20 +5,16 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 // import Sidebar from "../src/components/layout/Sidebar"
 
 //Pages
-import LoginPage from "../src/features/auth/LoginPage"
-import Signup from "../src/features/auth/Signup"
+import LoginPage from "../src/auth/LoginPage"
+import Signup from "../src/auth/Signup"
 //Usuario
-import DashboardUser from "../src/features/pages/dashboard/user/DashboardUser"
-import ClientesUser from "../src/features/pages/dashboard/user/ClientesUser"
-import PedidosUser from "../src/features/pages/dashboard/user/PedidosUser"
-import NotifUser from "../src/features/pages/dashboard/user/NotifUser"
+import DashboardUser from "../src/pages/dashboard/user/DashboardUser"
+import ClientesUser from "../src/pages/dashboard/user/ClientesUser"
+import PedidosUser from "../src/pages/dashboard/user/PedidosUser"
+import NotifUser from "../src/pages/dashboard/user/NotifUser"
 //Protected Route
 
-
-
-import ProtectedRoute from "../src/features/auth/ProtectedRoute"
-
-
+import ProtectedRoute from "../src/auth/ProtectedRoute"
 
 function Approuter() {
   return (

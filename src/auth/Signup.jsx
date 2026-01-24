@@ -3,7 +3,7 @@ import React from 'react';
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import NavBar from '../../components/layout/Navbar';
+import NavBar from '../components/layout/Navbar';
 
 function Signup() {
   const [name, setName] = useState("");
