@@ -25,41 +25,32 @@ app.use('/api', routes);
 const distPath = path.join(__dirname, '../dist');
 const distExists = existsSync(distPath);
 
-// Servir archivos estáticos del frontend en producción
-if (process.env.NODE_ENV === 'production') {
-  if (distExists) {
-    console.log('✅ Carpeta dist/ encontrada, sirviendo frontend');
-    app.use(express.static(distPath));
-    
-    // Todas las rutas que no sean /api devuelven el index.html (Express 5 compatible)
-    app.use((req, res, next) => {
-      if (!req.path.startsWith('/api')) {
-        res.sendFile(path.join(distPath, 'index.html'));
-      } else {
-        next();
-      }
-    });
-  } else {
-    console.warn('⚠️ Carpeta dist/ NO encontrada. Ejecuta "npm run build" primero');
-    app.get("/", (req, res) => {
-      res.status(500).send(`
-        <h1>⚠️ Frontend no construido</h1>
-        <p>La carpeta dist/ no existe. Ejecuta <code>npm run build</code> antes de desplegar.</p>
-        <p>API funcionando en <a href="/api">/api</a></p>
-      `);
-    });
-  }
+// Servir archivos estáticos del frontend si dist/ existe
+if (distExists) {
+  console.log('✅ Carpeta dist/ encontrada, sirviendo frontend');
+  app.use(express.static(distPath));
+  
+  // Todas las rutas que no sean /api devuelven el index.html (Express 5 compatible)
+  app.use((req, res, next) => {
+    if (!req.path.startsWith('/api')) {
+      res.sendFile(path.join(distPath, 'index.html'));
+    } else {
+      next();
+    }
+  });
 } else {
-  // Ruta raíz de prueba en desarrollo
+  console.warn('⚠️ Carpeta dist/ NO encontrada');
   app.get("/", (req, res) => {
-    res.send("API SABSMART funcionando");
+    res.send("API SABSMART funcionando - Frontend no construido");
   });
 }
 
 const PORT = process.env.PORT || 3000;
-const HOST = process.env.NODE_ENV === 'production' ? '0.0.0.0' : 'localhost';
+// En Railway o producción, escuchar en 0.0.0.0, sino en localhost
+const HOST = process.env.PORT ? '0.0.0.0' : 'localhost';
 
 app.listen(PORT, HOST, () => {  
-  console.log(`Servidor corriendo en ${HOST}:${PORT}`);
+  console.log(`✅ Servidor corriendo en ${HOST}:${PORT}`);
+  console.log(`🌍 NODE_ENV: ${process.env.NODE_ENV || 'development'}`);
 })
 
