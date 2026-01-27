@@ -25,9 +25,13 @@ app.use('/api', routes);
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../dist')));
   
-  // Todas las rutas que no sean /api devuelven el index.html
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../dist/index.html'));
+  // Todas las rutas que no sean /api devuelven el index.html (Express 5 compatible)
+  app.use((req, res, next) => {
+    if (!req.path.startsWith('/api')) {
+      res.sendFile(path.join(__dirname, '../dist/index.html'));
+    } else {
+      next();
+    }
   });
 } else {
   // Ruta raíz de prueba en desarrollo
