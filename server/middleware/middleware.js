@@ -1,12 +1,3 @@
 /* 
 
-funciones que se ejecutan antes de que la request llegue a la ruta final
-
-casi igual al mdw que uso en golang
-
-leer json
-valdiar token
-manejar seguridad
-registrar logs
-
 */

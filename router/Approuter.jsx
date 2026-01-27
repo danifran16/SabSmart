@@ -1,70 +1,95 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 
-//Layouts
-// import Navbar from "../src/components/layout/Navbar"
-// import Sidebar from "../src/components/layout/Sidebar"
-
 //Pages
 import LoginPage from "../src/auth/LoginPage"
 import Signup from "../src/auth/Signup"
-//Usuario
-import DashboardUser from "../src/pages/dashboard/user/DashboardUser"
-import ClientesUser from "../src/pages/dashboard/user/ClientesUser"
-import PedidosUser from "../src/pages/dashboard/user/PedidosUser"
-import NotifUser from "../src/pages/dashboard/user/NotifUser"
-//Protected Route
 
+//Usuario
+import DashboardUser from "../src/pages/user/Dashboard/DashboardUser"
+import ClientesUser from "../src/pages/user/Clientes/ClientesUser"
+import PedidosUser from "../src/pages/user/PedidosUser/PedidosUser"
+import TareasUser from "../src/pages/user/Tareas/TareasUser"
+import NotifUser from "../src/pages/user/Notif/NotifUser"
+
+// Cliente
+import DashboardClient from "../src/pages/client/Dashboard/DashboardUser"
+import PedidosClient from "../src/pages/client/Pedidos/PedidosClient"
+
+//Protected Route
 import ProtectedRoute from "../src/auth/ProtectedRoute"
 
 function Approuter() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route
+          path="/"
+          element={<LoginPage />} />
 
-        <Route path="/" element={<LoginPage />} />
-        <Route path="/signup" element={<Signup />} />  
+        <Route
+          path="/signup"
+          element={<Signup />} />
 
-        <Route 
-          path="/dashboard" 
+        {/* Vistas Usuario */}
+        <Route
+          path="/dashboard"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute allowedRoles={["admin"]}>
               <DashboardUser />
             </ProtectedRoute>
-          }/>
+          } />
 
-        <Route 
-          path="/clientes" 
+        <Route
+          path="/clientes"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute allowedRoles={["admin"]}>
               <ClientesUser />
             </ProtectedRoute>
-          }/>
+          } />
 
-        <Route 
-          path="/pedidos" 
+        <Route
+          path="/pedidos"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute allowedRoles={["admin"]}>
               <PedidosUser />
             </ProtectedRoute>
-          }/>
+          } />
 
-        <Route 
-          path="/notificaciones" 
+        <Route
+          path="/tareas"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute allowedRoles={["admin"]}>
+              <TareasUser />
+            </ProtectedRoute>
+          } />
+
+        <Route
+          path="/notificaciones"
+          element={
+            <ProtectedRoute allowedRoles={["admin"]}>
               <NotifUser />
             </ProtectedRoute>
-          }/>
+          } />
 
+        {/* Vistas Cliente */}
+        <Route
+          path="/mi-dashboard"
+          element={
+            <ProtectedRoute allowedRoles={["cliente"]}>
+              <DashboardClient />
+            </ProtectedRoute>
+          } />
 
+        <Route
+          path="/mis-pedidos"
+          element={
+            <ProtectedRoute allowedRoles={["cliente"]}>
+              <PedidosClient />
+            </ProtectedRoute>
+          } />
 
-
-
-
-
-        
       </Routes>
-    </BrowserRouter>
+    </BrowserRouter >
   );
 }
 

@@ -2,16 +2,21 @@
 // iniciamos el servidor, configuramos express
 // aqui creamos la app, se registran mdw, rutas y se levanta el servidor
 
+import 'dotenv/config';
 import express from "express"
 import cors from 'cors';
-
+import routes from './routes/routes.js';
+// import db from './config/db.js';
 
 const app = express(); // se crea la app de Express
 
 app.use(cors()); // permite request desde react
 app.use(express.json()); // aqui permite leer json en request
 
-// Aquí luego conectas las rutas
+// Usa rutas bajo /api
+app.use('/api', routes);
+
+// Ruta raíz de prueba
 app.get("/", (req, res) => {
   res.send("API SABSMART funcionando");
 });
@@ -20,15 +25,3 @@ app.listen(3000, () => {
   console.log('Servidor corriendo en http://localhost:3000');
 })
 
-
-/* 
-Express:
-framework de node.js que crea servidores HTTP que:
-  recibe solicitudes (req) desde un navegador o una app
-  responde con informacion (responses)
-
-
-
-
-
-*/
