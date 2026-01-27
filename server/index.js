@@ -29,7 +29,7 @@ const distExists = existsSync(distPath);
 if (distExists) {
   console.log('✅ Carpeta dist/ encontrada, sirviendo frontend');
   app.use(express.static(distPath));
-  
+
   // Todas las rutas que no sean /api devuelven el index.html (Express 5 compatible)
   app.use((req, res, next) => {
     if (!req.path.startsWith('/api')) {
@@ -46,11 +46,9 @@ if (distExists) {
 }
 
 const PORT = process.env.PORT || 3000;
-// En Railway o producción, escuchar en 0.0.0.0, sino en localhost
-const HOST = process.env.PORT ? '0.0.0.0' : 'localhost';
 
-app.listen(PORT, HOST, () => {  
-  console.log(`✅ Servidor corriendo en ${HOST}:${PORT}`);
+app.listen(PORT, () => {
+  console.log(`✅ Servidor corriendo en puerto ${PORT}`);
   console.log(`🌍 NODE_ENV: ${process.env.NODE_ENV || 'development'}`);
 })
 
