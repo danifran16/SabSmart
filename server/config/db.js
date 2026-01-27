@@ -2,11 +2,11 @@ import mysql from 'mysql2';
 
 // Configuración de la conexión a la base de datos MySQL
 const db = mysql.createConnection({
-    host: '127.0.0.1',
-    port: 3306,    
-    user: 'sabsmart_user',
-    password: 'sabsmart_2026',
-    database: 'sabsmart'
+    host: process.env.DB_HOST || '127.0.0.1',
+    port: process.env.DB_PORT || 3306,    
+    user: process.env.DB_USER || 'sabsmart_user',
+    password: process.env.DB_PASSWORD || 'sabsmart_2026',
+    database: process.env.DB_NAME || 'sabsmart'
 });
 
 db.connect((err) => {
