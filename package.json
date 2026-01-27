@@ -8,9 +8,9 @@
     "start:dev": "node --watch server/index.js",
     "dev": "vite",
     "build": "vite build",
+    "build:server": "npm run build && node server/index.js",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "railway:build": "npm run build"
+    "preview": "vite preview"
   },
   "dependencies": {
     "axios": "^1.13.2",
