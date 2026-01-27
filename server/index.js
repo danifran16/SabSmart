@@ -57,8 +57,9 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 const PORT = process.env.PORT || 3000;
+const HOST = process.env.NODE_ENV === 'production' ? '0.0.0.0' : 'localhost';
 
-app.listen(PORT, () => {  
-  console.log(`Servidor corriendo en puerto ${PORT}`);
+app.listen(PORT, HOST, () => {  
+  console.log(`Servidor corriendo en ${HOST}:${PORT}`);
 })
 
