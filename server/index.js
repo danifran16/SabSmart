@@ -45,9 +45,11 @@ if (distExists) {
   });
 }
 
+// Use PORT provided in environment or default to 3000
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
+// Listen on `port` and 0.0.0.0
+app.listen(PORT, "0.0.0.0", function () {
   console.log(`✅ Servidor corriendo en puerto ${PORT}`);
   console.log(`🌍 NODE_ENV: ${process.env.NODE_ENV || 'development'}`);
 })
