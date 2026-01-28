@@ -4,11 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "node server/index.js",
+    "start": "npm run build && node server/index.js",
     "start:dev": "node --watch server/index.js",
     "dev": "vite",
     "build": "vite build",
-    "build:server": "npm run build && node server/index.js",
     "lint": "eslint .",
     "preview": "vite preview"
   },
