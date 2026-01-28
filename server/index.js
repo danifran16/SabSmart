@@ -28,9 +28,16 @@ const distExists = existsSync(distPath);
 // Servir archivos estáticos del frontend si dist/ existe
 if (distExists) {
   console.log('✅ Carpeta dist/ encontrada, sirviendo frontend');
+
+  // Servir archivos estáticos
   app.use(express.static(distPath));
 
-  // Todas las rutas que no sean /api devuelven el index.html (Express 5 compatible)
+  // RUTA RAÍZ EXPLÍCITA (CRÍTICA para Railway)
+  app.get('/', (req, res) => {
+    res.sendFile(path.join(distPath, 'index.html'));
+  });
+
+  // Fallback SOLO para rutas que NO sean /api
   app.use((req, res, next) => {
     if (!req.path.startsWith('/api')) {
       res.sendFile(path.join(distPath, 'index.html'));
@@ -38,6 +45,7 @@ if (distExists) {
       next();
     }
   });
+
 } else {
   console.warn('⚠️ Carpeta dist/ NO encontrada');
   app.get("/", (req, res) => {
